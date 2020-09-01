@@ -1,4 +1,4 @@
-package domeneshop
+package client
 
 import (
 	"encoding/json"

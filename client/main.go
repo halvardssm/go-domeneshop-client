@@ -1,4 +1,4 @@
-package domeneshop
+package client
 
 func New(token, secret string) *Client {
 	return &Client{
