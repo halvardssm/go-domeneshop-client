@@ -28,7 +28,7 @@ type ListDomainsParams struct {
 	Tld string `url:"tld"`
 }
 
-func (s *Client) ListDomains(params *ListDomainsParams) (*[]Domain, error) {
+func (s *Client) ListDomains(params ListDomainsParams) (*[]Domain, error) {
 	bytes, err := s.Get("domains", params)
 	if err != nil {
 		return nil, err
