@@ -1,3 +1,7 @@
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/halvardssm/go-domeneshop-client/CI?logo=github&style=flat-square)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/halvardssm/go-domeneshop-client?logo=go&style=flat-square)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/halvardssm/go-domeneshop-client?logo=go&style=flat-square)
+
 # Go Domeneshop Client
 
 This is a domeneshop client for Go following the [api specs](https://api.domeneshop.no/docs/)
