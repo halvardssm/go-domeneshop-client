@@ -11,6 +11,7 @@ type HttpForward struct {
 	Url   string `json:"url"`
 }
 
+// https://api.domeneshop.no/docs/#tag/forwards/paths/~1domains~1{domainId}~1forwards~1/get
 func (s *Client) ListHttpForwards(domainId int) (*[]HttpForward, error) {
 	url := fmt.Sprintf("domains/%d/forwards", domainId)
 	bytes, err := s.Get(url, nil)
@@ -25,6 +26,7 @@ func (s *Client) ListHttpForwards(domainId int) (*[]HttpForward, error) {
 	return &data, nil
 }
 
+// https://api.domeneshop.no/docs/#tag/forwards/paths/~1domains~1{domainId}~1forwards~1/post
 func (s *Client) CreateHttpForward(domainId int, newForward HttpForward) (*HttpForward, error) {
 	url := fmt.Sprintf("domains/%d/forwards", domainId)
 	message, err := json.Marshal(newForward)
@@ -43,8 +45,9 @@ func (s *Client) CreateHttpForward(domainId int, newForward HttpForward) (*HttpF
 	return &data, nil
 }
 
-func (s *Client) GetDnsRecordByHost(domainId int, host string) (*HttpForward, error) {
-	url := fmt.Sprintf("domains/%d/dns/%s", domainId, host)
+// https://api.domeneshop.no/docs/#tag/forwards/paths/~1domains~1{domainId}~1forwards~1{host}/get
+func (s *Client) GetHttpForwardByHost(domainId int, host string) (*HttpForward, error) {
+	url := fmt.Sprintf("domains/%d/forwards/%s", domainId, host)
 	bytes, err := s.Get(url, nil)
 	if err != nil {
 		return nil, err
@@ -57,13 +60,14 @@ func (s *Client) GetDnsRecordByHost(domainId int, host string) (*HttpForward, er
 	return &data, nil
 }
 
+// https://api.domeneshop.no/docs/#tag/forwards/paths/~1domains~1{domainId}~1forwards~1{host}/put
 func (s *Client) UpdateHttpForward(domainId int, host string, updatedForward HttpForward) (*HttpForward, error) {
 	url := fmt.Sprintf("domains/%d/forwards/%s", domainId, host)
 	message, err := json.Marshal(updatedForward)
 	if err != nil {
 		return nil, err
 	}
-	bytes, err := s.Post(url, message)
+	bytes, err := s.Put(url, message)
 	if err != nil {
 		return nil, err
 	}
@@ -75,6 +79,7 @@ func (s *Client) UpdateHttpForward(domainId int, host string, updatedForward Htt
 	return &data, nil
 }
 
+// https://api.domeneshop.no/docs/#tag/forwards/paths/~1domains~1{domainId}~1forwards~1{host}/delete
 func (s *Client) DeleteHttpForward(domainId int, host string) (*HttpForward, error) {
 	url := fmt.Sprintf("domains/%d/forwards/%s", domainId, host)
 	bytes, err := s.Delete(url)

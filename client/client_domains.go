@@ -25,9 +25,10 @@ type Domain struct {
 }
 
 type ListDomainsParams struct {
-	Tld string `url:"tld"`
+	Tld string `url:"tld,omitempty"`
 }
 
+// https://api.domeneshop.no/docs/#operation/getDomains
 func (s *Client) ListDomains(params ListDomainsParams) (*[]Domain, error) {
 	bytes, err := s.Get("domains", params)
 	if err != nil {
@@ -41,6 +42,7 @@ func (s *Client) ListDomains(params ListDomainsParams) (*[]Domain, error) {
 	return &data, nil
 }
 
+// https://api.domeneshop.no/docs/#tag/domains/paths/~1domains~1{domainId}/get
 func (s *Client) GetDomainById(domainId int) (*Domain, error) {
 	url := fmt.Sprintf("domains/%d", domainId)
 	bytes, err := s.Get(url, nil)

@@ -18,9 +18,10 @@ type Invoice struct {
 }
 
 type ListInvoicesParams struct {
-	Status string `url:"status"`
+	Status string `url:"status,omitempty"`
 }
 
+// https://api.domeneshop.no/docs/#operation/getInvoices
 func (s *Client) ListInvoices(params ListInvoicesParams) (*[]Invoice, error) {
 	url := "invoice"
 	bytes, err := s.Get(url, params)
@@ -35,6 +36,7 @@ func (s *Client) ListInvoices(params ListInvoicesParams) (*[]Invoice, error) {
 	return &data, nil
 }
 
+// https://api.domeneshop.no/docs/#operation/findInvoiceByNumber
 func (s *Client) GetInvoiceByInvoiceNumber(invoiceId int) (*Invoice, error) {
 	url := fmt.Sprintf("invoice/%d", invoiceId)
 	bytes, err := s.Get(url, nil)

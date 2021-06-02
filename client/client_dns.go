@@ -15,14 +15,16 @@ type Dns struct {
 	Port     int16  `json:"port"`
 }
 
-type DnsCreateResponse struct {
+type DnsSaveResponse struct {
 	Id int `json:"id"`
 }
 
 type ListDnsRecordsParams struct {
-	Host string `url:"host"`
+	Host string `url:"host,omitempty"`
+	Type string `url:"type,omitempty"`
 }
 
+// https://api.domeneshop.no/docs/#operation/getDnsRecords
 func (s *Client) ListDnsRecords(domainId int, params ListDnsRecordsParams) (*[]Dns, error) {
 	url := fmt.Sprintf("domains/%d/dns", domainId)
 	bytes, err := s.Get(url, params)
@@ -37,7 +39,8 @@ func (s *Client) ListDnsRecords(domainId int, params ListDnsRecordsParams) (*[]D
 	return &data, nil
 }
 
-func (s *Client) CreateDnsRecord(domainId int, newRecord Dns) (*DnsCreateResponse, error) {
+// https://api.domeneshop.no/docs/#tag/dns/paths/~1domains~1{domainId}~1dns/post
+func (s *Client) CreateDnsRecord(domainId int, newRecord Dns) (*DnsSaveResponse, error) {
 	url := fmt.Sprintf("domains/%d/dns", domainId)
 	message, err := json.Marshal(newRecord)
 	if err != nil {
@@ -47,7 +50,7 @@ func (s *Client) CreateDnsRecord(domainId int, newRecord Dns) (*DnsCreateRespons
 	if err != nil {
 		return nil, err
 	}
-	var data DnsCreateResponse
+	var data DnsSaveResponse
 	err = json.Unmarshal(bytes, &data)
 	if err != nil {
 		return nil, err
@@ -55,6 +58,7 @@ func (s *Client) CreateDnsRecord(domainId int, newRecord Dns) (*DnsCreateRespons
 	return &data, nil
 }
 
+// https://api.domeneshop.no/docs/#operation/getRecordById
 func (s *Client) GetDnsRecordById(domainId, recordId int) (*Dns, error) {
 	url := fmt.Sprintf("domains/%d/dns/%d", domainId, recordId)
 	bytes, err := s.Get(url, nil)
@@ -69,7 +73,8 @@ func (s *Client) GetDnsRecordById(domainId, recordId int) (*Dns, error) {
 	return &data, nil
 }
 
-func (s *Client) UpdateDnsRecord(domainId, recordId int, updatedRecord Dns) (*DnsCreateResponse, error) {
+// https://api.domeneshop.no/docs/#tag/dns/paths/~1domains~1{domainId}~1dns~1{recordId}/put
+func (s *Client) UpdateDnsRecord(domainId, recordId int, updatedRecord Dns) (*DnsSaveResponse, error) {
 	url := fmt.Sprintf("domains/%d/dns/%d", domainId, recordId)
 	message, err := json.Marshal(updatedRecord)
 	if err != nil {
@@ -79,7 +84,7 @@ func (s *Client) UpdateDnsRecord(domainId, recordId int, updatedRecord Dns) (*Dn
 	if err != nil {
 		return nil, err
 	}
-	var data DnsCreateResponse
+	var data DnsSaveResponse
 	err = json.Unmarshal(bytes, &data)
 	if err != nil {
 		return nil, err
@@ -87,13 +92,14 @@ func (s *Client) UpdateDnsRecord(domainId, recordId int, updatedRecord Dns) (*Dn
 	return &data, nil
 }
 
-func (s *Client) DeleteDnsRecord(domainId, recordId int) (*DnsCreateResponse, error) {
+// https://api.domeneshop.no/docs/#tag/dns/paths/~1domains~1{domainId}~1dns~1{recordId}/delete
+func (s *Client) DeleteDnsRecord(domainId, recordId int) (*DnsSaveResponse, error) {
 	url := fmt.Sprintf("domains/%d/dns/%d", domainId, recordId)
 	bytes, err := s.Delete(url)
 	if err != nil {
 		return nil, err
 	}
-	var data DnsCreateResponse
+	var data DnsSaveResponse
 	err = json.Unmarshal(bytes, &data)
 	if err != nil {
 		return nil, err
