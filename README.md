@@ -1,6 +1,6 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/halvardssm/go-domeneshop-client/CI?logo=github&style=flat-square)
-![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/halvardssm/go-domeneshop-client?logo=go&style=flat-square)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/halvardssm/go-domeneshop-client?logo=go&style=flat-square)
+[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/halvardssm/go-domeneshop-client?logo=go&style=flat-square)](https://pkg.go.dev/github.com/halvardssm/go-domeneshop-client)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/halvardssm/go-domeneshop-client?logo=go&style=flat-square)](https://github.com/halvardssm/go-domeneshop-client)
 
 # Go Domeneshop Client
 
